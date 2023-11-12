@@ -53,3 +53,31 @@ class UserExtraInfo(models.Model):
         managed=True
         verbose_name='人员扩展信息'
         db_table = 'UserExtraInfo4'
+
+class CardInfo(models.Model):
+    id=models.AutoField(verbose_name='编号',primary_key=True)
+    cardno = models.CharField(verbose_name='卡号',max_length=30)
+    bank = models.CharField(verbose_name='所属银行',max_length=30)
+    user=models.ForeignKey(UserBaseInfo,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id)
+
+    class Meta:
+        managed=True
+        verbose_name='用户卡信息'
+        db_table = 'CardInfo'
+        
+class SkillInfo(models.Model):
+    id=models.AutoField(verbose_name='编号',primary_key=True)
+    skillname = models.CharField(verbose_name='特长',max_length=30)
+    createdate = models.DateTimeField(verbose_name='创建日期',db_column='createDate')
+    user=models.ManyToManyField(UserBaseInfo,db_table="user_skill")
+
+    def __str__(self):
+        return str(self.id)
+
+    class Meta:
+        managed=True
+        verbose_name='特长信息'
+        db_table = 'SkillInfo'
