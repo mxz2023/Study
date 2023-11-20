@@ -36,6 +36,9 @@ class MyUser(AbstractUser):
         return self.username
 
     class Meta(AbstractUser.Meta):
+        verbose_name = '用户'
+        verbose_name_plural = '用户'
+
         permissions = (
             ['check_myuser', '审核用户信息'],
         )

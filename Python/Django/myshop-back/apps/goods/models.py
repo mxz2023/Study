@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from common.base_model import BaseModel
 from apps.users.models import MyUser
+from datetime import datetime
 
 
 class GoodsCategory(BaseModel):
@@ -49,3 +50,18 @@ class Goods(BaseModel):
         verbose_name = '商品信息'
         verbose_name_plural = '商品信息'
         db_table = 'd_goods'
+
+
+class Slide(models.Model):
+    """
+    首页轮播图
+    """
+    goods = models.ForeignKey(Goods, verbose_name='商品', on_delete=models.DO_NOTHING)
+    images = models.ImageField(upload_to='slide', verbose_name='轮播图片')
+    sort = models.IntegerField(default=0, verbose_name='排列顺序')
+    create_date = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+
+    class Meta:
+        verbose_name = '首页轮播'
+        verbose_name_plural = '首页轮播'
+        db_table = 'd_slide'
