@@ -34,10 +34,9 @@ class MyUserViewSet(CustomModelViewSet):
             print("retrieve")
             return [permissions.IsAuthenticated()]
         elif self.action == "update":
-            return [permissions.IsAuthenticated()]
             print("update")
+            return [permissions.IsAuthenticated()]
         else:
-            # return []
             return []
 
     # 获取当前用户
@@ -49,11 +48,11 @@ class CustomBackend(ModelBackend):
     """
     自定义用户验证
     """
-
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:
             myuser = MyUser.objects.get(Q(username=username) | Q(mobile=username))
             if myuser.check_password(password):
                 return myuser
         except Exception as e:
+            print('%s', e)
             return None

@@ -9,6 +9,8 @@
 """
 from django.urls import path, include, re_path
 from apps.users import views
+# from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 
 user_list = views.MyUserViewSet.as_view({
     'get': 'retrieve',
@@ -22,7 +24,13 @@ user_detail = views.MyUserViewSet.as_view({
     'delete': 'destroy',
 })
 
+# router = DefaultRouter()
+# router.register('users', views.MyUserViewSet)
+router = SimpleRouter()
+router.register('users', views.MyUserViewSet)
+
 urlpatterns = [
-    path('users/', user_list),
-    path('users/<pk>/', user_detail),  # 查找、更新、删除
+    # path('users/', user_list),
+    # path('users/<pk>/', user_detail),  # 查找、更新、删除
+    path("", include(router.urls))
 ]
